@@ -13,6 +13,9 @@ export default {
   components: {
     HelloWorld,
   },
+  created() {
+    const a = 10;
+  },
 };
 </script>
 
