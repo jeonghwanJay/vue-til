@@ -14,6 +14,7 @@
 				<input id="nickname" type="text" v-model="nickname" />
 			</div>
 			<button type="submit">회원가입</button>
+			<p>{{ logmessage }}</p>
 		</form>
 	</div>
 </template>
@@ -26,16 +27,18 @@ export default {
 			username: "",
 			password: "",
 			nickname: "",
+			logmessage: "",
 		}
 	},
 	methods: {
-		submitForm() {
+		async submitForm() {
 			const userData = {
 				username: this.username,
 				password: this.password,
 				nickname: this.nickname,
 			}
-			registerUser(userData)
+			const { data } = await registerUser(userData)
+			this.logmessage = `${data.username}님 회원가입 축하드립니다.`
 		},
 	},
 }
