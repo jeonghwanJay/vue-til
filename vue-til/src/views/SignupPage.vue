@@ -1,9 +1,16 @@
 <template>
-	<div>Signup</div>
+	<div>
+		<signup-form></signup-form>
+	</div>
 </template>
 
 <script>
-export default {}
+import SignupForm from "@/components/common/SignupForm.vue"
+export default {
+	components: {
+		SignupForm,
+	},
+}
 </script>
 
 <style></style>
