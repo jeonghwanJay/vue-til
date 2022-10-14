@@ -1,18 +1,31 @@
 <template>
-	<form v-on:submit.prevent="submitForm">
-		<div>
-			<label for="username">id:</label>
-			<input id="username" type="text" v-model="username" />
+	<div class="contents">
+		<div class="form-wrapper form-wrapper-sm">
+			<form @submit.prevent="submitForm" class="form">
+				<div>
+					<label for="username">id:</label>
+					<input id="username" type="text" v-model="username" />
+					<p class="validation-text">
+						<span class="warning" v-if="!isUsernameValid && username">
+							Please enter an email address
+						</span>
+					</p>
+				</div>
+				<div>
+					<label for="password">pw:</label>
+					<input id="password" type="text" v-model="password" />
+				</div>
+				<button
+					:disabled="!isUsernameValid || !password"
+					type="submit"
+					class="btn"
+				>
+					로그인
+				</button>
+			</form>
+			<p class="log">{{ logMessage }}</p>
 		</div>
-		<div>
-			<label for="password">pw:</label>
-			<input id="password" type="password" v-model="password" />
-		</div>
-		<button type="submit" v-bind:disabled="!isUsernameValid || !password">
-			로그인
-		</button>
-		<p>{{ logmessage }}</p>
-	</form>
+	</div>
 </template>
 
 <script>
@@ -21,9 +34,11 @@ import { validateEmail } from "@/utils/validation"
 export default {
 	data() {
 		return {
+			// form values
 			username: "",
 			password: "",
-			logmessage: "",
+			// log
+			logMessage: "",
 		}
 	},
 	computed: {
@@ -34,24 +49,34 @@ export default {
 	methods: {
 		async submitForm() {
 			try {
+				// 비즈니스 로직
 				const userData = {
 					username: this.username,
 					password: this.password,
 				}
 				const { data } = await loginUser(userData)
-				this.logmessage = `${data.user.username}님 환영합니다.`
-				// this.initForm()
+				console.log(data.user.username)
+				this.logMessage = `${data.user.username} 님 환영합니다`
+				// this.initForm();
 			} catch (error) {
-				this.logmessage = error.response.data
+				// 에러 핸들링할 코드
+				console.log(error.response.data)
+				this.logMessage = error.response.data
+				// this.initForm();
 			} finally {
 				this.initForm()
 			}
 		},
 		initForm() {
-			;(this.username = ""), (this.password = "")
+			this.username = ""
+			this.password = ""
 		},
 	},
 }
 </script>
 
-<style></style>
+<style>
+.btn {
+	color: white;
+}
+</style>
