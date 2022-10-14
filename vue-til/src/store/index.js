@@ -16,5 +16,8 @@ export default new vuex.Store({
 		setUsername(state, username) {
 			state.username = username
 		},
+		clearUsername(state) {
+			state.username = ""
+		},
 	},
 })
