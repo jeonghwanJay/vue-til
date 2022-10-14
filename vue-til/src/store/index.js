@@ -7,4 +7,14 @@ export default new vuex.Store({
 	state: {
 		username: "",
 	},
+	getters: {
+		isLogin(state) {
+			return state.username !== ""
+		},
+	},
+	mutations: {
+		setUsername(state, username) {
+			state.username = username
+		},
+	},
 })
