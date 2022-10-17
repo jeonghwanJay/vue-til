@@ -2,11 +2,14 @@
 import { posts } from "@/api/index"
 
 function fetchPosts() {
-	return posts.get("posts")
+	return posts.get()
 }
 
 function createPost(postData) {
-	return posts.post("posts", postData)
+	return posts.post("/", postData)
 }
 
-export { fetchPosts, createPost }
+function deletePost(postId) {
+	return posts.delete(postId)
+}
+export { fetchPosts, createPost, deletePost }
