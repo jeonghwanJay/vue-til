@@ -8,6 +8,7 @@
 				v-for="postItem in postItems"
 				v-bind:key="postItem._id"
 				v-bind:postItem="postItem"
+				@refresh="fetchData"
 			></PostListItem>
 		</div>
 		<router-link to="/add" class="create-button">

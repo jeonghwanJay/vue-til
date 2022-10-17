@@ -9,7 +9,12 @@
 				</div>
 				<div>
 					<label for="contents">Contents:</label>
-					<textarea id="contents" rows="5" v-model="contents"></textarea>
+					<textarea
+						id="contents"
+						rows="5"
+						v-model="contents"
+						type="text"
+					></textarea>
 					<p v-if="!isContentsValid" class="text-validation warning">
 						Contents length must be less than 200
 					</p>
