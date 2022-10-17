@@ -1,9 +1,28 @@
-import vue from "vue"
-import LoginForm from "@/components/LoginForm.vue"
+import { shallowMount } from "@vue/test-utils"
+import LoginForm from "./LoginForm.vue"
 
-describe("컴포넌트가 마운팅되면 username이 존재하고 초기값 설정이 되어있어야 한다.", () => {
-	test("LoginForm.vue", () => {
-		const instance = new vue(LoginForm).$mount()
-		expect(instance.username).toBe("")
+describe("LoginForm.vue", () => {
+	test("로그인 id 형식은 이메일이어야 합니다.", () => {
+		const wrapper = shallowMount(LoginForm, {
+			data() {
+				return {
+					username: "test12@naver.com",
+				}
+			},
+		})
+		const warningText = wrapper.find(".warning")
+		expect(warningText.exists()).toBeTruthy()
+	})
+	test("아이디와 패스워드를 모두 입력해야 로그인이 가능합니다.", () => {
+		const wrapper = shallowMount(LoginForm, {
+			data() {
+				return {
+					username: "",
+					password: "",
+				}
+			},
+		})
+		const button = wrapper.find("button")
+		expect(button.element.disabled).toBeTruthy()
 	})
 })
