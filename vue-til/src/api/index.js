@@ -7,21 +7,12 @@ function createInstance() {
 	})
 	return setInterceptors(instance)
 }
-const instance = createInstance()
 
-// 회원가입 API
-function registerUser(userData) {
-	return instance.post("signup", userData)
+function createInstanceWithAuth(url) {
+	const instance = axios.create({
+		baseURL: `${process.env.VUE_APP_API_URL}/${url}`,
+	})
+	return setInterceptors(instance)
 }
-
-// 로그인 API
-function loginUser(userData) {
-	return instance.post("login", userData)
-}
-
-// 학습 노트를 조회하는 API
-function fetchPosts() {
-	return instance.get("posts")
-}
-
-export { registerUser, loginUser, fetchPosts }
+export const instance = createInstance()
+export const posts = createInstanceWithAuth("posts")
